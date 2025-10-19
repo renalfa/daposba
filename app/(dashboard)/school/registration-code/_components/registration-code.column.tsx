@@ -12,63 +12,66 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {EllipsisVertical} from "lucide-react";
 
-export type StudentRow = {
+export type RegistrationCodeRow = {
     id: string;
-    nisn: string;
-    nik: string;
     name: string;
-    gender: "male" | "female";
-    class_name: string;
-    age: number;
-    email: string;
-    phone: string;
+    npsn: string;
+    status: "swasta" | "negeri";
+    type: "kb" | "tk" | "sd" | "smp" | "sma";
+    address: string;
+    district: string;
+    registration_code: string;
 };
 
-export const columns: ColumnDef<StudentRow>[] = [
+export const columns: ColumnDef<RegistrationCodeRow>[] = [
     {
         accessorKey: "name",
         header: () => <span className="font-semibold">Nama</span>,
         cell: ({row}) => (
             <div className="flex flex-col">
                 <span className="font-medium">{row.getValue("name")}</span>
-                <span className="text-xs text-muted-foreground">{row.original.email}</span>
             </div>
         ),
     },
     {
-        accessorKey: "nisn",
-        header: () => <span className="font-semibold">NISN</span>,
-        cell: ({row}) => <code className="text-xs bg-muted px-1 rounded">{row.getValue("nisn")}</code>,
+        accessorKey: "npsn",
+        header: () => <span className="font-semibold">NPSN</span>,
+        cell: ({row}) => <code className="text-xs bg-muted px-1 rounded">{row.getValue("npsn")}</code>,
     },
     {
-        accessorKey: "nik",
-        header: () => <span className="font-semibold">NIK</span>,
-        cell: ({row}) => <code className="text-xs bg-muted px-1 rounded">{row.getValue("nik")}</code>,
-    },
-    {
-        accessorKey: "gender",
-        header: () => <span className="font-semibold">Gender</span>,
+        accessorKey: "status",
+        header: () => <span className="font-semibold">Status</span>,
         cell: ({row}) => (
             <Badge variant="outline" className="capitalize">
-                {row.getValue("gender")}
+                {row.getValue("status")}
             </Badge>
         ),
     },
     {
-        accessorKey: "class_name",
-        header: () => <span className="font-semibold">Kelas</span>,
-        cell: ({row}) => <span>{row.getValue("class_name")}</span>,
+        accessorKey: "type",
+        header: () => <span className="font-semibold">Bentuk</span>,
+        cell: ({row}) => (
+            <Badge variant="outline" className="uppercase">
+                {row.getValue("type")}
+            </Badge>
+        ),
+    },
+    {
+        accessorKey: "address",
+        header: () => <span className="font-semibold">Alamat</span>,
+        cell: ({row}) => <span>{row.getValue("address")}</span>,
         enableColumnFilter: true,
     },
     {
-        accessorKey: "age",
-        header: () => <span className="font-semibold">Umur</span>,
-        cell: ({row}) => <span className="tabular-nums">{row.getValue("age")}</span>,
+        accessorKey: "district",
+        header: () => <span className="font-semibold">Kecamatan</span>,
+        cell: ({row}) => <span>{row.getValue("district")}</span>,
+        enableColumnFilter: true,
     },
     {
-        accessorKey: "phone",
-        header: () => <span className="font-semibold">No HP</span>,
-        cell: ({row}) => <span className="tabular-nums">{row.getValue("phone")}</span>,
+        accessorKey: "registration_code",
+        header: () => <span className="font-semibold">Kode Registrasi</span>,
+        cell: ({row}) => <code className="text-xs bg-muted px-1 rounded">{row.getValue("registration_code")}</code>,
     },
     {
         id: "actions",
