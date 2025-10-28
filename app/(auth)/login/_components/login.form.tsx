@@ -14,6 +14,7 @@ import {LoginSchema, type LoginInput} from "@/lib/validators/auth";
 import {login} from "@/lib/services/auth";
 import {useRouter, useSearchParams} from "next/navigation";
 import {toast} from "sonner";
+import {Eye, EyeClosed} from "lucide-react";
 
 type Props = React.ComponentProps<"form"> & {
     onSuccess?: (res: {token: string; token_type: string; user: string}) => void;
@@ -23,6 +24,8 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
     const router = useRouter();
     const sp = useSearchParams();
     const returnTo = sp.get("from") || "/";
+
+    const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
     const {
         register,
@@ -101,7 +104,28 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
                             Forgot your password?
                         </a>
                     </div>
-                    <Input id="password" type="password" aria-invalid={!!errors.password} {...register("password")} />
+                    <div className="relative">
+                        <Input
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="*******"
+                            aria-invalid={!!errors.password}
+                            {...register("password")}
+                        />
+                        {showPassword ? (
+                            <EyeClosed
+                                size={20}
+                                onClick={() => setShowPassword(false)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                            />
+                        ) : (
+                            <Eye
+                                size={20}
+                                onClick={() => setShowPassword(true)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                            />
+                        )}
+                    </div>
                     {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password.message}</p>}
                 </Field>
 
