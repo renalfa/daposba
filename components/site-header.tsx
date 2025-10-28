@@ -14,6 +14,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {useSidebar} from "@/components/ui/sidebar";
+import {ThemeSwitcher} from "./theme-switcher";
 
 export function SiteHeader() {
     const {toggleSidebar} = useSidebar();
@@ -36,7 +37,10 @@ export function SiteHeader() {
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
-                <SearchForm className="w-full sm:ml-auto sm:w-auto" />
+                <div className="ml-auto flex items-center gap-2">
+                    <ThemeSwitcher />
+                    <SearchForm className="w-full sm:w-auto" />
+                </div>
             </div>
         </header>
     );
