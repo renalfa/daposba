@@ -25,7 +25,7 @@ import {
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Badge} from "@/components/ui/badge";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {ChevronDown, ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight} from "lucide-react";
+import {ChevronDown, ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight, Search} from "lucide-react";
 
 export type DataTableProps<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[];
@@ -103,12 +103,15 @@ export function DataTable<TData, TValue>({
             {/* Toolbar */}
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <div className="flex flex-1 items-center gap-2">
-                    <Input
-                        placeholder={`Search ${searchableColumn ?? "..."}`}
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        className="max-w-xs"
-                    />
+                    <div className="flex-1 relative">
+                        <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
+                        <Input
+                            placeholder={`Cari ${searchableColumn ?? "..."}`}
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                            className="max-w-xs pl-8"
+                        />
+                    </div>
                     {facetedFilters &&
                         Object.entries(facetedFilters).map(([columnId, options]) => {
                             const col = table.getColumn(columnId);
@@ -166,9 +169,9 @@ export function DataTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-lg border">
+            <div className="rounded-lg border bg-background overflow-hidden">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="bg-muted">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (

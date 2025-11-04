@@ -18,8 +18,8 @@ import Image from "next/image";
 import {menus} from "@/lib/menus";
 
 const user = {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: "admin@example.com",
     avatar: "/avatars/shadcn.jpg",
 };
 

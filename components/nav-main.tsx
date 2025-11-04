@@ -59,7 +59,7 @@ function TopLevelItem({item, pathname}: {item: MenuNode; pathname: string}) {
             <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                     <SidebarMenuButton tooltip={item.title}>
-                        {Icon ? <Icon /> : null}
+                        {Icon ? <Icon className="text-blue-400" /> : null}
                         <span>{item.title}</span>
                     </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -89,11 +89,12 @@ function RecursiveSubItem({item, pathname}: {item: MenuNode; pathname: string}) 
     if (!hasChildren) {
         return (
             <SidebarMenuSubItem>
-                <SidebarMenuSubButton asChild>
+                <SidebarMenuSubButton className={matchPath(pathname, item.url) ? "dark:bg-blue-500/20 bg-blue-50" : undefined} asChild>
                     <Link href={item.url || "#"}>
-                        <span className={matchPath(pathname, item.url) ? "font-semibold" : undefined}>
+                        <span className={matchPath(pathname, item.url) ? "font-semibold text-blue-400" : undefined}>
                             {item.title}
                         </span>
+                        {matchPath(pathname, item.url) &&<div className="w-1 h-full bg-blue-400 ml-auto absolute right-0"></div>}
                     </Link>
                 </SidebarMenuSubButton>
             </SidebarMenuSubItem>
