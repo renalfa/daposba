@@ -46,8 +46,7 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
             const res = await login(values);
 
             if (typeof window !== "undefined") {
-                localStorage.setItem("accessToken", res.token);
-                localStorage.setItem("tokenType", res.token_type);
+                localStorage.setItem("token", res.token);
                 localStorage.setItem("user", JSON.stringify(res.user));
             }
 

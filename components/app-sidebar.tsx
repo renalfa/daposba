@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import {menus} from "@/lib/menus";
+import {useMenu} from "@/hooks/use-menus";
 
 const user = {
     name: "Admin",
@@ -24,6 +25,10 @@ const user = {
 };
 
 export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+    const {data: menu, isLoading} = useMenu();
+
+    console.log(menu);
+
     return (
         <Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!" {...props}>
             <SidebarHeader>
