@@ -1,8 +1,8 @@
-import {getMenu} from "@/lib/services/menu";
+import {getMenu, MenuResponse} from "@/lib/services/menu";
 import {useQuery} from "@tanstack/react-query";
 
 export function useMenu() {
-    return useQuery({
+    return useQuery<MenuResponse, Error>({
         queryKey: ["menu"],
         queryFn: () => getMenu(),
     });

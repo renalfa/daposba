@@ -1,17 +1,48 @@
 import {api} from "./api";
+import type {UpdateSchoolFormValues} from "@/lib/validators/school";
+
+export type UpdateSchoolInput = UpdateSchoolFormValues;
 
 export type School = {
     id: number;
-    name: string;
-    alamat_jalan?: string;
-    desa_kelurahan?: string;
-    kecamatan?: string;
-    kabupaten?: string;
-    provinsi?: string;
-    nama_bank?: string;
-    no_rekening?: string;
-    rekening_atas_nama?: string;
-    validation_status?: string;
+    backbone_id: string;
+    nama: string;
+    npsn: string;
+    bentuk_pendidikan: string;
+    status_sekolah: string;
+    alamat_jalan: string;
+    desa_kelurahan: string;
+    kecamatan: string;
+    kabupaten: string;
+    provinsi: string;
+    sk_pendirian_sekolah: string;
+    sk_izin_operasional: string;
+    status_kepemilikan: string;
+    daya_listrik: string;
+    akses_internet: boolean;
+    akreditasi: string;
+    no_rekening: string;
+    nama_bank: string;
+    rekening_atas_nama: string;
+    validation_status: string;
+    backbone_last_synced_at: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type SchoolListResponse = {
+    current_page: number;
+    data: School[];
+    first_page_url: string;
+    from: number | null;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number | null;
+    total: number;
 };
 
 export type ListSchoolsParams = {
@@ -28,11 +59,6 @@ export type PaginationMeta = {
     total: number;
     from?: number;
     to?: number;
-};
-
-export type SchoolListResponse = {
-    data: School[];
-    meta?: PaginationMeta;
 };
 
 const token = localStorage.getItem("token");
@@ -70,56 +96,37 @@ export async function listSchools(params: ListSchoolsParams = {}): Promise<Schoo
         .json<SchoolListResponse>();
 }
 
-export type SchoolDetailResponse = {
-    data: School;
-};
-
-export async function getSchoolById(studentId: number | string): Promise<SchoolDetailResponse> {
+export async function getSchoolById(studentId: number | string): Promise<School> {
     return api
         .get(`schools/${studentId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-        .json<SchoolDetailResponse>();
+        .json<School>();
 }
 
-export async function verifySchool(schoolId: number | string): Promise<SchoolDetailResponse> {
+export async function verifySchool(schoolId: number | string): Promise<School> {
     return api
         .post(`schools/${schoolId}/verify`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-        .json<SchoolDetailResponse>();
+        .json<School>();
 }
 
-export async function approveSchool(schoolId: number | string): Promise<SchoolDetailResponse> {
+export async function approveSchool(schoolId: number | string): Promise<School> {
     return api
         .post(`schools/${schoolId}/approve`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-        .json<SchoolDetailResponse>();
+        .json<School>();
 }
 
-export type UpdateSchoolInput = {
-    nama?: string;
-    alamat_jalan?: string;
-    desa_kelurahan?: string;
-    kecamatan?: string;
-    kabupaten?: string;
-    provinsi?: string;
-    nama_bank?: string;
-    no_rekening?: string;
-    rekening_atas_nama?: string;
-};
-
-export async function updateSchool(
-    schoolId: number | string,
-    payload: UpdateSchoolInput
-): Promise<SchoolDetailResponse> {
+export async function updateSchool(schoolId: number | string, payload: UpdateSchoolInput): Promise<School> {
     return api
         .put(`schools/${schoolId}`, {
             headers: {
@@ -127,5 +134,5 @@ export async function updateSchool(
             },
             json: payload,
         })
-        .json<SchoolDetailResponse>();
+        .json<School>();
 }

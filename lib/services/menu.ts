@@ -1,14 +1,21 @@
 import {api} from "./api";
 
-export type MenuResponse = {
-    id: number;
-    name: string;
-    icon?: string;
-    route?: string;
-    children?: MenuResponse[];
-};
+export type Ability = string;
 
-export async function getMenu(): Promise<MenuResponse[]> {
+export interface MenuItem {
+    key: string;
+    label: string;
+    icon: string;
+    route: string;
+    abilities?: Ability[];
+}
+
+export interface MenuResponse {
+    role: string;
+    menus: MenuItem[];
+}
+
+export async function getMenu(): Promise<MenuResponse> {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -21,5 +28,5 @@ export async function getMenu(): Promise<MenuResponse[]> {
                 Authorization: `Bearer ${token}`,
             },
         })
-        .json<MenuResponse[]>();
+        .json<MenuResponse>();
 }

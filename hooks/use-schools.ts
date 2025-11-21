@@ -2,13 +2,14 @@ import {
     getSchoolById,
     listSchools,
     ListSchoolsParams,
-    SchoolDetailResponse,
+    School,
     SchoolListResponse,
     updateSchool,
     UpdateSchoolInput,
     verifySchool,
 } from "@/lib/services/school";
 import {useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
+import {toast} from "sonner";
 
 export function useSchools(params: ListSchoolsParams) {
     return useQuery<SchoolListResponse, Error>({
@@ -18,7 +19,7 @@ export function useSchools(params: ListSchoolsParams) {
 }
 
 export function useSchool(studentId: number | string) {
-    return useQuery<SchoolDetailResponse, Error>({
+    return useQuery<School, Error>({
         queryKey: ["school", studentId],
         queryFn: () => getSchoolById(studentId),
     });
@@ -27,13 +28,22 @@ export function useSchool(studentId: number | string) {
 export function useVerifySchool() {
     const queryClient = useQueryClient();
 
-    return useMutation<SchoolDetailResponse, Error, number | string>({
+    return useMutation<School, Error, number | string>({
         mutationKey: ["verify-school"],
         mutationFn: (schoolId) => verifySchool(schoolId),
-        onSuccess: (data) => {
+        onSuccess: (data, variables, context) => {
             queryClient.invalidateQueries({queryKey: ["schools"]});
             queryClient.invalidateQueries({
-                queryKey: ["school", data.data.id],
+                queryKey: ["school", data.id],
+            });
+
+            toast.success("Sekolah berhasil diverifikasi", {
+                description: `${data.nama} sudah berstatus terverifikasi.`,
+            });
+        },
+        onError: (error, variables, context) => {
+            toast.error("Gagal memverifikasi sekolah", {
+                description: error.message ?? "Terjadi kesalahan pada server.",
             });
         },
     });
@@ -42,13 +52,22 @@ export function useVerifySchool() {
 export function useApproveSchool() {
     const queryClient = useQueryClient();
 
-    return useMutation<SchoolDetailResponse, Error, number | string>({
+    return useMutation<School, Error, number | string>({
         mutationKey: ["approve-school"],
         mutationFn: (schoolId) => verifySchool(schoolId),
-        onSuccess: (data) => {
+        onSuccess: (data, variables, context) => {
             queryClient.invalidateQueries({queryKey: ["schools"]});
             queryClient.invalidateQueries({
-                queryKey: ["school", data.data.id],
+                queryKey: ["school", data.id],
+            });
+
+            toast.success("Sekolah berhasil di-approve", {
+                description: `${data.nama} sudah disetujui.`,
+            });
+        },
+        onError: (error) => {
+            toast.error("Gagal meng-approve sekolah", {
+                description: error.message ?? "Terjadi kesalahan pada server.",
             });
         },
     });
@@ -62,13 +81,22 @@ type UpdateSchoolVars = {
 export function useUpdateSchool() {
     const queryClient = useQueryClient();
 
-    return useMutation<SchoolDetailResponse, Error, UpdateSchoolVars>({
+    return useMutation<School, Error, UpdateSchoolVars>({
         mutationKey: ["update-school"],
         mutationFn: ({id, data}) => updateSchool(id, data),
-        onSuccess: (res) => {
+        onSuccess: (res, variables, context) => {
             queryClient.invalidateQueries({queryKey: ["schools"]});
             queryClient.invalidateQueries({
-                queryKey: ["school", res.data.id],
+                queryKey: ["school", res.id],
+            });
+
+            toast.success("Data sekolah berhasil diperbarui", {
+                description: res.nama,
+            });
+        },
+        onError: (error) => {
+            toast.error("Gagal memperbarui data sekolah", {
+                description: error.message ?? "Terjadi kesalahan pada server.",
             });
         },
     });
