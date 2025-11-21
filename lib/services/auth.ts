@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate, apiPublic} from "./api";
 import type {LoginInput} from "@/lib/validators/auth";
 
 export type LoginResponse = {
@@ -6,22 +6,6 @@ export type LoginResponse = {
     token: string;
     token_type: "Bearer" | string;
 };
-
-const token = localStorage.getItem("token");
-
-export async function login(input: LoginInput): Promise<LoginResponse> {
-    return api.post("auth/login", {json: input}).json<LoginResponse>();
-}
-
-export async function logout(): Promise<{message: string}> {
-    return api
-        .post("auth/logout", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<{message: string}>();
-}
 
 export type RegisterInput = {
     name: string;
@@ -44,13 +28,14 @@ export type RegisterResponse = {
     token_type: string;
 };
 
+export async function login(input: LoginInput): Promise<LoginResponse> {
+    return apiPublic.post("auth/login", {json: input}).json<LoginResponse>();
+}
+
+export async function logout(): Promise<{message: string}> {
+    return apiPrivate.post("auth/logout").json<{message: string}>();
+}
+
 export async function registerUser(payload: RegisterInput): Promise<RegisterResponse> {
-    return api
-        .post("auth/register", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            json: payload,
-        })
-        .json<RegisterResponse>();
+    return apiPrivate.post("auth/register").json<RegisterResponse>();
 }

@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 import type {UpdateSchoolFormValues} from "@/lib/validators/school";
 
 export type UpdateSchoolInput = UpdateSchoolFormValues;
@@ -61,14 +61,8 @@ export type PaginationMeta = {
     to?: number;
 };
 
-const token = localStorage.getItem("token");
-
 export async function listSchools(params: ListSchoolsParams = {}): Promise<SchoolListResponse> {
     const searchParams = new URLSearchParams();
-
-    if (!token) {
-        throw new Error("Token not found");
-    }
 
     if (params.kecamatan) {
         searchParams.append("kecamatan", params.kecamatan);
@@ -86,52 +80,28 @@ export async function listSchools(params: ListSchoolsParams = {}): Promise<Schoo
         searchParams.append("per_page", String(params.per_page));
     }
 
-    return api
+    return apiPrivate
         .get("schools", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             searchParams,
         })
         .json<SchoolListResponse>();
 }
 
 export async function getSchoolById(studentId: number | string): Promise<School> {
-    return api
-        .get(`schools/${studentId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<School>();
+    return apiPrivate.get(`schools/${studentId}`).json<School>();
 }
 
 export async function verifySchool(schoolId: number | string): Promise<School> {
-    return api
-        .post(`schools/${schoolId}/verify`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<School>();
+    return apiPrivate.post(`schools/${schoolId}/verify`).json<School>();
 }
 
 export async function approveSchool(schoolId: number | string): Promise<School> {
-    return api
-        .post(`schools/${schoolId}/approve`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<School>();
+    return apiPrivate.post(`schools/${schoolId}/approve`).json<School>();
 }
 
 export async function updateSchool(schoolId: number | string, payload: UpdateSchoolInput): Promise<School> {
-    return api
+    return apiPrivate
         .put(`schools/${schoolId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<School>();

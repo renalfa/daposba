@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Ptk = {
     id: number;
@@ -43,14 +43,8 @@ export type PtkListResponse = {
     meta?: PaginationMeta;
 };
 
-const token = localStorage.getItem("token");
-
 export async function listPtk(params: ListPtkParams = {}): Promise<PtkListResponse> {
     const searchParams = new URLSearchParams();
-
-    if (!token) {
-        throw new Error("Token not found");
-    }
 
     if (params.status_kepegawaian) {
         searchParams.append("status_kepegawaian", params.status_kepegawaian);
@@ -72,11 +66,8 @@ export async function listPtk(params: ListPtkParams = {}): Promise<PtkListRespon
         searchParams.append("per_page", String(params.per_page));
     }
 
-    return api
+    return apiPrivate
         .get("ptk", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             searchParams,
         })
         .json<PtkListResponse>();
@@ -87,33 +78,15 @@ export type PtkDetailResponse = {
 };
 
 export async function getPtkById(ptkId: number | string): Promise<PtkDetailResponse> {
-    return api
-        .get(`ptk/${ptkId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<PtkDetailResponse>();
+    return apiPrivate.get(`ptk/${ptkId}`).json<PtkDetailResponse>();
 }
 
 export async function verifyPtk(ptkId: number | string): Promise<PtkDetailResponse> {
-    return api
-        .post(`ptk/${ptkId}/verify`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<PtkDetailResponse>();
+    return apiPrivate.post(`ptk/${ptkId}/verify`).json<PtkDetailResponse>();
 }
 
 export async function approvePtk(ptkId: number | string): Promise<PtkDetailResponse> {
-    return api
-        .post(`ptk/${ptkId}/approve`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<PtkDetailResponse>();
+    return apiPrivate.post(`ptk/${ptkId}/approve`).json<PtkDetailResponse>();
 }
 
 export type UpdatePtkInput = {
@@ -135,11 +108,8 @@ export type UpdatePtkInput = {
 };
 
 export async function updatePtk(ptkId: number | string, payload: UpdatePtkInput): Promise<PtkDetailResponse> {
-    return api
+    return apiPrivate
         .put(`ptk/${ptkId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<PtkDetailResponse>();

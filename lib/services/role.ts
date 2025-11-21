@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Role = {
     id: string;
@@ -24,26 +24,12 @@ export type RoleListResponse = {
     meta?: PaginationMeta;
 };
 
-const token = localStorage.getItem("token");
-
 export async function getRoles(): Promise<RoleListResponse> {
-    return api
-        .get("roles", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<RoleListResponse>();
+    return apiPrivate.get("roles").json<RoleListResponse>();
 }
 
 export async function getUserRole(userId: number | string): Promise<UserRoleResponse> {
-    return api
-        .get(`users/${userId}/role`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<UserRoleResponse>();
+    return apiPrivate.get(`users/${userId}/role`).json<UserRoleResponse>();
 }
 
 export type UpdateUserRoleInput = {
@@ -52,11 +38,8 @@ export type UpdateUserRoleInput = {
 };
 
 export async function updateUserRole(userId: number | string, payload: UpdateUserRoleInput): Promise<UserRoleResponse> {
-    return api
+    return apiPrivate
         .put(`users/${userId}/role`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<UserRoleResponse>();

@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Ability = string;
 
@@ -22,11 +22,5 @@ export async function getMenu(): Promise<MenuResponse> {
         throw new Error("Token not found");
     }
 
-    return api
-        .get("menu", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<MenuResponse>();
+    return apiPrivate.get("menu").json<MenuResponse>();
 }

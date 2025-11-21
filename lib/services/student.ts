@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Student = {
     id: number;
@@ -73,14 +73,8 @@ export type UpdateStudentInput = {
     tanggal_keluar?: string; // "YYYY-MM-DD"
 };
 
-const token = localStorage.getItem("token");
-
 export async function listStudents(params: ListStudentsParams = {}): Promise<StudentListResponse> {
     const searchParams = new URLSearchParams();
-
-    if (!token) {
-        throw new Error("Token not found");
-    }
 
     if (params.status) {
         searchParams.append("status", params.status);
@@ -106,11 +100,8 @@ export async function listStudents(params: ListStudentsParams = {}): Promise<Stu
         searchParams.append("per_page", String(params.per_page));
     }
 
-    return api
+    return apiPrivate
         .get("students", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             searchParams,
         })
         .json<StudentListResponse>();
@@ -121,44 +112,23 @@ export type StudentDetailResponse = {
 };
 
 export async function getStudentById(studentId: number | string): Promise<StudentDetailResponse> {
-    return api
-        .get(`students/${studentId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<StudentDetailResponse>();
+    return apiPrivate.get(`students/${studentId}`).json<StudentDetailResponse>();
 }
 
 export async function verifyStudent(studentId: number | string): Promise<StudentDetailResponse> {
-    return api
-        .post(`students/${studentId}/verify`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<StudentDetailResponse>();
+    return apiPrivate.post(`students/${studentId}/verify`).json<StudentDetailResponse>();
 }
 
 export async function approveStudent(studentId: number | string): Promise<StudentDetailResponse> {
-    return api
-        .post(`students/${studentId}/approve`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<StudentDetailResponse>();
+    return apiPrivate.post(`students/${studentId}/approve`).json<StudentDetailResponse>();
 }
 
 export async function updateStudent(
     studentId: number | string,
     payload: UpdateStudentInput
 ): Promise<StudentDetailResponse> {
-    return api
+    return apiPrivate
         .put(`students/${studentId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<StudentDetailResponse>();

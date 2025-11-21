@@ -8,49 +8,49 @@ import {useStudents} from "@/hooks/use-students";
 import {useRoles} from "@/hooks/use-roles";
 
 export default function DashboardPage() {
-    const {data: schools, isLoading: schoolLoading} = useSchools({
-        kecamatan: "",
-        validation_status: "",
-        page: 1,
-        per_page: 10,
-    });
+    // const {data: schools, isLoading: schoolLoading} = useSchools({
+    //     kecamatan: "",
+    //     validation_status: "",
+    //     page: 1,
+    //     per_page: 10,
+    // });
 
-    const {data: students, isLoading: studentLoading} = useStudents({
-        status: "",
-        layak_pip: false,
-        penerima_kip: false,
-        validation_status: "",
-        page: 1,
-        per_page: 10,
-    });
+    // const {data: students, isLoading: studentLoading} = useStudents({
+    //     status: "",
+    //     layak_pip: false,
+    //     penerima_kip: false,
+    //     validation_status: "",
+    //     page: 1,
+    //     per_page: 10,
+    // });
 
-    const {data: ptk, isLoading: ptkLoading} = usePtk({
-        status_kepegawaian: "PNS",
-        kode_kecamatan: "737101",
-        validation_status: "verified_school",
-        page: 1,
-        per_page: 10,
-    });
+    // const {data: ptk, isLoading: ptkLoading} = usePtk({
+    //     status_kepegawaian: "PNS",
+    //     kode_kecamatan: "737101",
+    //     validation_status: "verified_school",
+    //     page: 1,
+    //     per_page: 10,
+    // });
 
-    const {data: rombel, isLoading: rombelLoading} = useRombels({
-        tingkat_pendidikan: "VII",
-        validation_status: "verified_school",
-        page: 1,
-        per_page: 10,
-    });
+    // const {data: rombel, isLoading: rombelLoading} = useRombels({
+    //     tingkat_pendidikan: "VII",
+    //     validation_status: "verified_school",
+    //     page: 1,
+    //     per_page: 10,
+    // });
 
-    const {data: sarpras, isLoading: sarprasLoading} = useSarpras({
-        kategori: "bangunan",
-        validation_status: "draft_school",
-        page: 1,
-        per_page: 10,
-    });
+    // const {data: sarpras, isLoading: sarprasLoading} = useSarpras({
+    //     kategori: "bangunan",
+    //     validation_status: "draft_school",
+    //     page: 1,
+    //     per_page: 10,
+    // });
 
-    const {data: roles, isLoading: roleLoading} = useRoles();
+    // const {data: roles, isLoading: roleLoading} = useRoles();
 
-    const {data: schoolDetail, isLoading: schoolDetailLoading} = useSchool(1);
+    // const {data: schoolDetail, isLoading: schoolDetailLoading} = useSchool(1);
 
-    console.log(roles);
+    // console.log(roles);
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4">

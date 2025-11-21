@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Rombel = {
     id: number;
@@ -39,14 +39,8 @@ export type RombelListResponse = {
     meta?: PaginationMeta;
 };
 
-const token = localStorage.getItem("token");
-
 export async function listRombels(params: ListRombelsParams = {}): Promise<RombelListResponse> {
     const searchParams = new URLSearchParams();
-
-    if (!token) {
-        throw new Error("Token not found");
-    }
 
     if (params.tingkat_pendidikan) {
         searchParams.append("tingkat_pendidikan", params.tingkat_pendidikan);
@@ -64,11 +58,8 @@ export async function listRombels(params: ListRombelsParams = {}): Promise<Rombe
         searchParams.append("per_page", String(params.per_page));
     }
 
-    return api
+    return apiPrivate
         .get("rombels", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             searchParams,
         })
         .json<RombelListResponse>();
@@ -79,33 +70,15 @@ export type RombelDetailResponse = {
 };
 
 export async function getRombelById(rombelId: number | string): Promise<RombelDetailResponse> {
-    return api
-        .get(`rombels/${rombelId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<RombelDetailResponse>();
+    return apiPrivate.get(`rombels/${rombelId}`).json<RombelDetailResponse>();
 }
 
 export async function verifyRombel(rombelId: number | string): Promise<RombelDetailResponse> {
-    return api
-        .post(`rombels/${rombelId}/verify`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<RombelDetailResponse>();
+    return apiPrivate.post(`rombels/${rombelId}/verify`).json<RombelDetailResponse>();
 }
 
 export async function approveRombel(rombelId: number | string): Promise<RombelDetailResponse> {
-    return api
-        .post(`rombels/${rombelId}/approve`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<RombelDetailResponse>();
+    return apiPrivate.post(`rombels/${rombelId}/approve`).json<RombelDetailResponse>();
 }
 
 export type UpdateRombelInput = {
@@ -127,11 +100,8 @@ export async function updateRombel(
     rombelId: number | string,
     payload: UpdateRombelInput
 ): Promise<RombelDetailResponse> {
-    return api
+    return apiPrivate
         .put(`rombels/${rombelId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<RombelDetailResponse>();

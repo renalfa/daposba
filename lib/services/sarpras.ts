@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {apiPrivate} from "./api";
 
 export type Sarpras = {
     id: number;
@@ -45,14 +45,8 @@ export type SarprasListResponse = {
     meta?: PaginationMeta;
 };
 
-const token = localStorage.getItem("token");
-
 export async function listSarpras(params: ListSarprasParams = {}): Promise<SarprasListResponse> {
     const searchParams = new URLSearchParams();
-
-    if (!token) {
-        throw new Error("Token not found");
-    }
 
     if (params.kategori) {
         searchParams.append("kategori", params.kategori);
@@ -70,11 +64,8 @@ export async function listSarpras(params: ListSarprasParams = {}): Promise<Sarpr
         searchParams.append("per_page", String(params.per_page));
     }
 
-    return api
+    return apiPrivate
         .get("sarpras", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             searchParams,
         })
         .json<SarprasListResponse>();
@@ -85,33 +76,15 @@ export type SarprasDetailResponse = {
 };
 
 export async function getSarprasById(sarprasId: number | string): Promise<SarprasDetailResponse> {
-    return api
-        .get(`sarpras/${sarprasId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<SarprasDetailResponse>();
+    return apiPrivate.get(`sarpras/${sarprasId}`).json<SarprasDetailResponse>();
 }
 
 export async function verifySarpras(sarprasId: number | string): Promise<SarprasDetailResponse> {
-    return api
-        .post(`sarpras/${sarprasId}/verify`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<SarprasDetailResponse>();
+    return apiPrivate.post(`sarpras/${sarprasId}/verify`).json<SarprasDetailResponse>();
 }
 
 export async function approveSarpras(sarprasId: number | string): Promise<SarprasDetailResponse> {
-    return api
-        .post(`sarpras/${sarprasId}/approve`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .json<SarprasDetailResponse>();
+    return apiPrivate.post(`sarpras/${sarprasId}/approve`).json<SarprasDetailResponse>();
 }
 
 export type UpdateSarprasInput = {
@@ -139,11 +112,8 @@ export async function updateSarpras(
     sarprasId: number | string,
     payload: UpdateSarprasInput
 ): Promise<SarprasDetailResponse> {
-    return api
+    return apiPrivate
         .put(`sarpras/${sarprasId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             json: payload,
         })
         .json<SarprasDetailResponse>();
