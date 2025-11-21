@@ -5,6 +5,7 @@ import {useRombels} from "@/hooks/use-rombels";
 import {useSarpras} from "@/hooks/use-sarpras";
 import {useSchool, useSchools} from "@/hooks/use-schools";
 import {useStudents} from "@/hooks/use-students";
+import {useRoles} from "@/hooks/use-roles";
 
 export default function DashboardPage() {
     const {data: schools, isLoading: schoolLoading} = useSchools({
@@ -45,15 +46,11 @@ export default function DashboardPage() {
         per_page: 10,
     });
 
+    const {data: roles, isLoading: roleLoading} = useRoles();
+
     const {data: schoolDetail, isLoading: schoolDetailLoading} = useSchool(1);
 
-    console.log(schoolDetail);
-
-    console.log(schools);
-    console.log(students);
-    console.log(ptk);
-    console.log(rombel);
-    console.log(sarpras);
+    console.log(roles);
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4">
