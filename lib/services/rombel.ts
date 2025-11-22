@@ -1,4 +1,7 @@
 import {apiPrivate} from "./api";
+import type { UpdateRombelFormValues } from "@/lib/validators/rombel";
+
+export type UpdateRombelInput = UpdateRombelFormValues;
 
 export type Rombel = {
     id: number;
@@ -12,10 +15,28 @@ export type Rombel = {
     jumlah_siswa_laki?: number;
     jumlah_siswa_perempuan?: number;
     jumlah_anggota_rombel?: number;
-    tanggal_mulai?: string;
-    tanggal_selesai?: string;
+    tanggal_mulai?: string | null;
+    tanggal_selesai?: string | null;
     validation_status?: string;
+    backbone_last_synced_at: string | null;
+    created_at: string;
+    updated_at: string;
     // tambahin field lain sesuai response API rombel-mu
+};
+
+export type RombelListResponse = {
+    current_page: number;
+    data: Rombel[];
+    first_page_url: string;
+    from: number | null;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number | null;
+    total: number;
 };
 
 export type ListRombelsParams = {
@@ -23,20 +44,6 @@ export type ListRombelsParams = {
     validation_status?: string;
     page?: number;
     per_page?: number;
-};
-
-export type PaginationMeta = {
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    from?: number;
-    to?: number;
-};
-
-export type RombelListResponse = {
-    data: Rombel[];
-    meta?: PaginationMeta;
 };
 
 export async function listRombels(params: ListRombelsParams = {}): Promise<RombelListResponse> {
@@ -65,44 +72,22 @@ export async function listRombels(params: ListRombelsParams = {}): Promise<Rombe
         .json<RombelListResponse>();
 }
 
-export type RombelDetailResponse = {
-    data: Rombel;
-};
-
-export async function getRombelById(rombelId: number | string): Promise<RombelDetailResponse> {
-    return apiPrivate.get(`rombels/${rombelId}`).json<RombelDetailResponse>();
+export async function getRombelById(rombelId: number | string): Promise<Rombel> {
+    return apiPrivate.get(`rombels/${rombelId}`).json<Rombel>();
 }
 
-export async function verifyRombel(rombelId: number | string): Promise<RombelDetailResponse> {
-    return apiPrivate.post(`rombels/${rombelId}/verify`).json<RombelDetailResponse>();
+export async function verifyRombel(rombelId: number | string): Promise<Rombel> {
+    return apiPrivate.post(`rombels/${rombelId}/verify`).json<Rombel>();
 }
 
-export async function approveRombel(rombelId: number | string): Promise<RombelDetailResponse> {
-    return apiPrivate.post(`rombels/${rombelId}/approve`).json<RombelDetailResponse>();
+export async function approveRombel(rombelId: number | string): Promise<Rombel> {
+    return apiPrivate.post(`rombels/${rombelId}/approve`).json<Rombel>();
 }
 
-export type UpdateRombelInput = {
-    nama_rombel?: string;
-    tingkat_pendidikan?: string;
-    kurikulum?: string;
-    jenis_rombel?: string;
-    ruang?: string;
-    ptk_id?: number;
-    nama_ptk?: string;
-    jumlah_siswa_laki?: number;
-    jumlah_siswa_perempuan?: number;
-    jumlah_anggota_rombel?: number;
-    tanggal_mulai?: string; // format: "YYYY-MM-DD"
-    tanggal_selesai?: string; // format: "YYYY-MM-DD"
-};
-
-export async function updateRombel(
-    rombelId: number | string,
-    payload: UpdateRombelInput
-): Promise<RombelDetailResponse> {
+export async function updateRombel(rombelId: number | string, payload: UpdateRombelInput): Promise<Rombel> {
     return apiPrivate
         .put(`rombels/${rombelId}`, {
             json: payload,
         })
-        .json<RombelDetailResponse>();
+        .json<Rombel>();
 }

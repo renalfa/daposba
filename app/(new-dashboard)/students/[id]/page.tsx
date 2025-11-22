@@ -37,7 +37,7 @@ const student = {
 export default function StudentDetailPage() {
     const router = useRouter();
 
-    // TODO: Replace with usePtkById not dummy
+    // TODO: Replace with useStudent not dummy
     // const params = useParams<{id: string}>();
     // const {data: student, isLoading, isError} = useStudent(params.id);
 
