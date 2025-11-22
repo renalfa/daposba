@@ -13,20 +13,19 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarSeparator,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import {useMenu} from "@/hooks/use-menus";
 import {Skeleton} from "./ui/skeleton";
 import {SimpleNavMain} from "./simple-nav-main";
+import {NavMain} from "./nav-main";
 
-const user = {
-    name: "Admin",
-    email: "admin@example.com",
-    avatar: "/avatars/shadcn.jpg",
-};
+import {menus as dummyMenu} from "@/lib/menus";
 
 export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
     const {data: menu, isLoading} = useMenu();
+    const user = JSON.parse(localStorage.getItem("user") || "");
 
     if (isLoading) {
         return <SidebarSkeleton {...props} />;
@@ -57,6 +56,9 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 </SidebarHeader>
                 <SidebarContent>
                     <SimpleNavMain items={menu ? menu.menus : []} />
+                </SidebarContent>
+                <SidebarContent>
+                    <NavMain items={dummyMenu} />
                 </SidebarContent>
                 <SidebarFooter>
                     <NavUser user={user} />
