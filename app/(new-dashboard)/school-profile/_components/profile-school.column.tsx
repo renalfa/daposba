@@ -3,13 +3,7 @@
 import {ColumnDef} from "@tanstack/react-table";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {EllipsisVertical} from "lucide-react";
 import {School} from "@/lib/services/school";
 import Link from "next/link";
@@ -92,8 +86,6 @@ export const columns: ColumnDef<School>[] = [
                     <DropdownMenuItem asChild>
                         <Link href={`/school-profile/${row.original.id}`}>Edit</Link>
                     </DropdownMenuItem>
-                    {/* <DropdownMenuSeparator />
-                    <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem> */}
                 </DropdownMenuContent>
             </DropdownMenu>
         ),

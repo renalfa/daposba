@@ -7,6 +7,8 @@ import {NewDataTable} from "@/components/ui/new-data-table";
 import {useSchools} from "@/hooks/use-schools";
 
 import {columns} from "./_components/profile-school.column";
+import {Button} from "@/components/ui/button";
+import {CheckIcon, FolderSync} from "lucide-react";
 
 export default function SchoolsPage() {
     const [pageIndex, setPageIndex] = React.useState(0);
@@ -24,7 +26,17 @@ export default function SchoolsPage() {
 
     return (
         <div className="p-4 space-y-4">
-            <h1 className="text-xl font-semibold">Data Sekolah</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-xl font-semibold">Data Sekolah</h1>
+                <div className="space-x-2">
+                    <Button>
+                        <CheckIcon /> Submit Data
+                    </Button>
+                    <Button>
+                        <FolderSync /> Sync Data
+                    </Button>
+                </div>
+            </div>
             <NewDataTable
                 columns={columns}
                 data={school.data}

@@ -8,9 +8,8 @@ import {SchoolEditForm} from "./_components/edit.form";
 
 export default function SchoolsDetailPage() {
     const router = useRouter();
-    const params = useParams();
-    const id = params.id;
-    const {data: school, isLoading} = useSchool(id as string);
+    const params = useParams<{id: string}>();
+    const {data: school, isLoading} = useSchool(params.id);
 
     if (isLoading || !school) {
         return <div className="p-4">Loading...</div>;
