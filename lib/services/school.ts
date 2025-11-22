@@ -52,15 +52,6 @@ export type ListSchoolsParams = {
     per_page?: number;
 };
 
-export type PaginationMeta = {
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    from?: number;
-    to?: number;
-};
-
 export async function listSchools(params: ListSchoolsParams = {}): Promise<SchoolListResponse> {
     const searchParams = new URLSearchParams();
 
