@@ -9,6 +9,7 @@ import {Button} from "@/components/ui/button";
 import {CheckIcon, FolderSync} from "lucide-react";
 import {useStudents} from "@/hooks/use-students";
 import {Student} from "@/lib/services/student";
+import LoadingTable from "@/components/loading-table";
 
 export const studentsData: Student[] = [
     {
@@ -110,7 +111,7 @@ export default function StudentsPage() {
     });
 
     if (isLoading || !students) {
-        return <div className="p-4">Loading...</div>;
+        return <LoadingTable />;
     }
 
     return (

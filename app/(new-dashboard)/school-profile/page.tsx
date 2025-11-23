@@ -9,6 +9,7 @@ import {useSchools} from "@/hooks/use-schools";
 import {columns} from "./_components/profile-school.column";
 import {Button} from "@/components/ui/button";
 import {CheckIcon, FolderSync} from "lucide-react";
+import LoadingTable from "@/components/loading-table";
 
 export default function SchoolsPage() {
     const [pageIndex, setPageIndex] = React.useState(0);
@@ -21,7 +22,7 @@ export default function SchoolsPage() {
     });
 
     if (isLoading || !school) {
-        return <div className="p-4">Loading...</div>;
+        return <LoadingTable />;
     }
 
     return (

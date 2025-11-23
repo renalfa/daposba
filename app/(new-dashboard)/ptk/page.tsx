@@ -9,6 +9,7 @@ import {usePtk} from "@/hooks/use-ptk";
 import {Ptk} from "@/lib/services/ptk";
 import {CheckIcon, FolderSync} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import LoadingTable from "@/components/loading-table";
 
 export const ptkData: Ptk[] = [
     {
@@ -91,7 +92,7 @@ export default function PtkPage() {
     });
 
     if (isLoading || !ptk) {
-        return <div className="p-4">Loading...</div>;
+        return <LoadingTable />;
     }
 
     return (

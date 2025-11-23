@@ -9,6 +9,7 @@ import {Button} from "@/components/ui/button";
 import {CheckIcon, FolderSync} from "lucide-react";
 import {Rombel} from "@/lib/services/rombel";
 import {useRombels} from "@/hooks/use-rombels";
+import LoadingTable from "@/components/loading-table";
 
 export const rombels: Rombel[] = [
     {
@@ -86,7 +87,7 @@ export default function rombelPage() {
     });
 
     if (isLoading || !rombel) {
-        return <div className="p-4">Loading...</div>;
+        return <LoadingTable />;
     }
 
     return (
