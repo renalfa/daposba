@@ -1,6 +1,6 @@
 import ky from "ky";
 
-const BASE_URL = process.env.API_BASE_URL ?? "http://aji.local:8000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://103.94.238.41:9000/api/v1";
 
 /**
  * PUBLIC API (tanpa token)
