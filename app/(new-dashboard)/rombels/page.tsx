@@ -104,7 +104,7 @@ export default function rombelPage() {
             </div>
             <NewDataTable
                 columns={columns}
-                data={rombel.data.length > 0 ? rombel.data : rombels}
+                data={rombel.data}
                 searchableColumn="nama_rombel"
                 manualPagination
                 pageIndex={rombel.current_page - 1}

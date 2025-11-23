@@ -128,7 +128,7 @@ export default function StudentsPage() {
             </div>
             <NewDataTable
                 columns={columns}
-                data={students.data.length > 0 ? students.data : studentsData}
+                data={students.data}
                 searchableColumn="nama"
                 manualPagination
                 pageIndex={students.current_page - 1}

@@ -109,7 +109,7 @@ export default function PtkPage() {
             </div>{" "}
             <NewDataTable
                 columns={columns}
-                data={ptk.data.length > 0 ? ptk.data : ptkData}
+                data={ptk.data}
                 searchableColumn="nama"
                 manualPagination
                 pageIndex={ptk.current_page - 1}

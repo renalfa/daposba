@@ -57,9 +57,9 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <SidebarContent>
                     <SimpleNavMain items={menu ? menu.menus : []} />
                 </SidebarContent>
-                <SidebarContent>
+                {/* <SidebarContent>
                     <NavMain items={dummyMenu} />
-                </SidebarContent>
+                </SidebarContent> */}
                 <SidebarFooter>
                     <NavUser user={user} />
                 </SidebarFooter>

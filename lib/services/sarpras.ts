@@ -3,7 +3,7 @@ import {apiPrivate} from "./api";
 export type Sarpras = {
     id: number;
     nama: string;
-    kategori?: string;
+    kategori?: "tanah" | "bangunan" | "ruang" | "alat" | "buku" | "sanitasi";
     kode_barang?: string;
     luas?: number;
     no_sertifikat_tanah?: string;
@@ -11,7 +11,7 @@ export type Sarpras = {
     tahun_dibangun?: number;
     nilai_aset?: number;
     luas_tapak_bangunan?: number;
-    kondisi?: string;
+    kondisi?: "Baik" | "Rusak Ringan" | "Rusak Berat";
     jenis_prasarana?: string;
     kapasitas?: number;
     jumlah_layak?: number;
@@ -21,7 +21,26 @@ export type Sarpras = {
     toilet_siswa?: number;
     tempat_sampah?: boolean;
     a_sabun_air_mengalir?: boolean;
+    validation_status: string;
+    backbone_last_synced_at: string | null;
+    created_at: string;
+    updated_at: string;
     // + field lain dari list/detail kalau ada
+};
+
+export type SarprasListResponse = {
+    current_page: number;
+    data: Sarpras[];
+    first_page_url: string;
+    from: number | null;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number | null;
+    total: number;
 };
 
 export type ListSarprasParams = {
@@ -29,20 +48,6 @@ export type ListSarprasParams = {
     validation_status?: string;
     page?: number;
     per_page?: number;
-};
-
-export type PaginationMeta = {
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    from?: number;
-    to?: number;
-};
-
-export type SarprasListResponse = {
-    data: Sarpras[];
-    meta?: PaginationMeta;
 };
 
 export async function listSarpras(params: ListSarprasParams = {}): Promise<SarprasListResponse> {
