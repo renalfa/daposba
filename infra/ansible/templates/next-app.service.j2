@@ -1,0 +1,18 @@
+[Unit]
+Description={{ app_name }} Next.js app
+After=network.target
+
+[Service]
+Type=simple
+User={{ ansible_user }}
+WorkingDirectory={{ deploy_dir }}
+EnvironmentFile={{ deploy_dir }}/.env.production
+ExecStart=/usr/bin/npm run start -- -p {{ app_port }}
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+LimitNOFILE=20000
+
+[Install]
+WantedBy=multi-user.target

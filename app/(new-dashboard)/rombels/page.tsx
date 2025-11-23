@@ -76,7 +76,7 @@ export const rombels: Rombel[] = [
     },
 ];
 
-export default function rombelPage() {
+export default function RombelPage() {
     const [pageIndex, setPageIndex] = React.useState(0);
     const [pageSize, setPageSize] = React.useState(25);
     const {data: rombel, isLoading} = useRombels({

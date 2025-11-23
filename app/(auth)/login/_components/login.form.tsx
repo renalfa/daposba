@@ -55,7 +55,10 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
         } catch (err: unknown) {
             if (err instanceof HTTPError) {
                 try {
-                    const data = (await err.response.json()) as any;
+                    const data = (await err.response.json()) as {
+                        message?: string;
+                        error?: string;
+                    };
                     const msg = data?.message || data?.error || "Email atau password salah. Coba lagi.";
 
                     setError("email", {message: undefined});

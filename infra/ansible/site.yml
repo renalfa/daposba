@@ -1,0 +1,93 @@
+---
+- name: Deploy Next.js app to VPS
+  hosts: app_servers
+  become: true
+  vars:
+    app_name: daposba-front
+    repo_url: 'https://github.com/renalfa/daposba.git'
+    repo_branch: main
+    deploy_dir: /var/www/{{ app_name }}
+    app_port: 3000
+    node_version: 20
+    service_name: "{{ app_name }}"
+    env_vars:
+      NODE_ENV: production
+      PORT: "{{ app_port }}"
+  tasks:
+    - name: Ensure apt cache is up to date
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install OS dependencies
+      ansible.builtin.apt:
+        name:
+          - git
+          - curl
+          - build-essential
+        state: latest
+        install_recommends: false
+
+    - name: Add NodeSource repository for Node {{ node_version }}
+      ansible.builtin.shell: |
+        curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | bash -
+      args:
+        executable: /bin/bash
+        creates: /etc/apt/sources.list.d/nodesource.list
+
+    - name: Ensure Node.js {{ node_version }} is installed
+      ansible.builtin.apt:
+        name: nodejs
+        state: present
+
+    - name: Create deploy directory
+      ansible.builtin.file:
+        path: "{{ deploy_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Deploy repository
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ deploy_dir }}"
+        version: "{{ repo_branch }}"
+        force: yes
+        accept_hostkey: yes
+
+    - name: Install npm dependencies
+      ansible.builtin.command: npm i
+      args:
+        chdir: "{{ deploy_dir }}"
+      environment:
+        CI: '1'
+
+    - name: Build Next.js production bundle
+      ansible.builtin.command: npm run build
+      args:
+        chdir: "{{ deploy_dir }}"
+
+    - name: Render environment file
+      ansible.builtin.template:
+        src: env.production.j2
+        dest: "{{ deploy_dir }}/.env.production"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+
+    - name: Render systemd unit
+      ansible.builtin.template:
+        src: next-app.service.j2
+        dest: "/etc/systemd/system/{{ service_name }}.service"
+        mode: '0644'
+
+    - name: Reload systemd units
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Ensure app service is running
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: restarted
+        enabled: true

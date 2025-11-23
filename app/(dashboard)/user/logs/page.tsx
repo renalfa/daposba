@@ -19,7 +19,7 @@ export function getMockLogs(): LogRow[] {
     for (let i = 1; i <= 100; i++) {
         const action = actions[Math.floor(Math.random() * actions.length)];
         const status = statuses[Math.floor(Math.random() * statuses.length)];
-        const module = modules[Math.floor(Math.random() * modules.length)];
+        const moduleName = modules[Math.floor(Math.random() * modules.length)];
         const entity = entities[Math.floor(Math.random() * entities.length)];
         const method = methods[Math.floor(Math.random() * methods.length)];
         const ip_address = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
@@ -35,7 +35,7 @@ export function getMockLogs(): LogRow[] {
             action,
             entity,
             entity_id,
-            module,
+            module: moduleName,
             description: `${performed_by ?? "System"} performed ${action} on ${entity ?? "system"}`,
             old_data: action === "UPDATE" ? {name: "Old Name", status: "inactive"} : null,
             new_data: action === "UPDATE" ? {name: "New Name", status: "active"} : null,

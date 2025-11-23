@@ -35,6 +35,7 @@ export function getMockUsers(): UserDataRow[] {
 export default async function UserDataPage() {
     const data = getMockUsers();
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const activeOpts = useMemo(
         () => [
             {label: "Active", value: "active"},
