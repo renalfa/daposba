@@ -81,9 +81,9 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
                     <div className="flex items-center gap-2">
                         <img src="/assets/images/logo.png" alt="Image" className="h-20 w-20 rounded-full" />
                     </div>
-                    <h1 className="text-2xl font-bold mt-6">Login to your account</h1>
+                    <h1 className="text-2xl font-bold mt-6">Selamat Datang!</h1>
                     <p className="text-muted-foreground text-sm text-balance">
-                        Enter your email below to login to your account
+                        Masukan email dan password untuk melanjutkan.
                     </p>
                 </div>
 
@@ -102,9 +102,9 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
                 <Field>
                     <div className="flex items-center">
                         <FieldLabel htmlFor="password">Password</FieldLabel>
-                        <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
+                        {/* <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
                             Forgot your password?
-                        </a>
+                        </a> */}
                     </div>
                     <div className="relative">
                         <Input
@@ -137,14 +137,14 @@ export function LoginForm({className, onSuccess, ...props}: Props) {
                     </Button>
                 </Field>
 
-                <Field>
+                {/* <Field>
                     <FieldDescription className="text-center">
                         Don&apos;t have an account?{" "}
                         <a href="#" className="underline underline-offset-4">
                             Sign up
                         </a>
                     </FieldDescription>
-                </Field>
+                </Field> */}
             </FieldGroup>
         </form>
     );
