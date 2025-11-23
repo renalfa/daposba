@@ -13,7 +13,7 @@ export default function DashboardLayout({
             <AuthGuard>
                 <SidebarProvider className="flex flex-col">
                     <SiteHeader />
-                    <div className="flex flex-1">
+                    <div className="flex flex-1 overflow-hidden">
                         <AppSidebar />
                         <SidebarInset>{children}</SidebarInset>
                     </div>

@@ -116,7 +116,7 @@ export default function StudentsPage() {
 
     return (
         <div className="p-4 space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between gap-4 md:items-center">
                 <h1 className="text-xl font-semibold">Data Peserta Didik</h1>
                 <div className="space-x-2">
                     <Button>

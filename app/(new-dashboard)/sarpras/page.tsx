@@ -27,7 +27,7 @@ export default function SarprasPage() {
 
     return (
         <div className="p-4 space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between gap-4 md:items-center">
                 <div className="flex items-center gap-2">
                     <h1 className="text-xl font-semibold">Data Sarana & Prasarana</h1>
                     {isLoading && (
@@ -42,7 +42,7 @@ export default function SarprasPage() {
                     <Button>
                         <CheckIcon className="mr-1 h-4 w-4" /> Submit Data
                     </Button>
-                    <Button variant="outline">
+                    <Button>
                         <FolderSync className="mr-1 h-4 w-4" /> Sync Data
                     </Button>
                 </div>

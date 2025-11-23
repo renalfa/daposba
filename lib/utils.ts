@@ -12,3 +12,16 @@ export function formatDateOnly(date: string | null) {
 
     return dayjs(date).locale("id").format("DD MMMM YYYY");
 }
+
+export function formatRupiah(value: number | string | null | undefined) {
+    if (!value) return "-";
+
+    const num = typeof value === "string" ? parseInt(value) : value;
+
+    return num.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+    });
+}
+

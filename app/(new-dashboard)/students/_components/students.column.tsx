@@ -7,7 +7,7 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 import {EllipsisVertical} from "lucide-react";
 import Link from "next/link";
 import {Student} from "@/lib/services/student";
-import {formatDateOnly} from "@/lib/utils";
+import {formatDateOnly, formatRupiah} from "@/lib/utils";
 
 export const columns: ColumnDef<Student>[] = [
     {
@@ -66,7 +66,9 @@ export const columns: ColumnDef<Student>[] = [
             <div className="flex flex-col text-xs gap-0.5">
                 <span className="font-medium">{row.getValue("nama_ayah")}</span>
                 <span className="text-xs text-muted-foreground">{row.original.pekerjaan_ayah}</span>
-                <code className="text-xs bg-muted px-1 rounded w-fit">{row.original.penghasilan_ayah}</code>
+                <code className="text-xs bg-muted px-1 rounded w-fit">
+                    {formatRupiah(row.original.penghasilan_ayah)}
+                </code>
             </div>
         ),
     },

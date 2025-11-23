@@ -159,7 +159,7 @@ export function NewDataTable<TData, TValue>({
                             placeholder={`Cari ${searchableColumn ?? "..."}`}
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
-                            className="max-w-xs pl-8"
+                            className="max-w-sm pl-8"
                         />
                     </div>
                     {facetedFilters &&
