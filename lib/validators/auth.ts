@@ -6,9 +6,3 @@ export const LoginSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof LoginSchema>;
-
-export type LoginResponse = {
-    user: string;
-    token: string;
-    token_type: "Bearer" | string;
-};
