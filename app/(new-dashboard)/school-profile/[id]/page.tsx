@@ -13,14 +13,11 @@ export default function SchoolsDetailPage() {
     const params = useParams<{id: string}>();
     const {data: school, isLoading, isError} = useSchool(params.id);
 
-    // State loading pertama: skeleton biar layout nggak lompat
     if (isLoading && !school) {
         return (
             <div className="p-4 space-y-4">
-                {/* Header skeleton */}
                 <Skeleton className="h-7 w-48" />
 
-                {/* Card/form skeleton */}
                 <div className="rounded-md border p-4 space-y-4">
                     <div className="grid gap-3 md:grid-cols-2">
                         <div className="space-y-2">
@@ -52,7 +49,6 @@ export default function SchoolsDetailPage() {
         );
     }
 
-    // Optional: handle error / data nggak ketemu
     if (isError || !school) {
         return (
             <div className="p-4">
@@ -61,7 +57,6 @@ export default function SchoolsDetailPage() {
         );
     }
 
-    // Data sudah ada, kalau refetch kita kasih indikator kecil
     return (
         <div className="p-4 space-y-4">
             <div className="flex items-center gap-2">

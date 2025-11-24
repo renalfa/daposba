@@ -53,25 +53,25 @@ export const columns: ColumnDef<Rombel>[] = [
         header: () => <span className="font-semibold">Tanggal Selesai</span>,
         cell: ({row}) => <span>{formatDateOnly(row.getValue("tanggal_selesai"))}</span>,
     },
-    {
-        id: "actions",
-        cell: ({row}) => (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-                        size="icon">
-                        <EllipsisVertical />
-                        <span className="sr-only">Open menu</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-32">
-                    <DropdownMenuItem asChild>
-                        <Link href={`/rombels/${row.original.id}`}>Edit</Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        ),
-    },
+    // {
+    //     id: "actions",
+    //     cell: ({row}) => (
+    //         <DropdownMenu>
+    //             <DropdownMenuTrigger asChild>
+    //                 <Button
+    //                     variant="ghost"
+    //                     className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
+    //                     size="icon">
+    //                     <EllipsisVertical />
+    //                     <span className="sr-only">Open menu</span>
+    //                 </Button>
+    //             </DropdownMenuTrigger>
+    //             <DropdownMenuContent align="end" className="w-32">
+    //                 <DropdownMenuItem asChild>
+    //                     <Link href={`/rombels/${row.original.id}`}>Edit</Link>
+    //                 </DropdownMenuItem>
+    //             </DropdownMenuContent>
+    //         </DropdownMenu>
+    //     ),
+    // },
 ];

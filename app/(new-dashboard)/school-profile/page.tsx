@@ -17,7 +17,7 @@ export default function SchoolsPage() {
     const {data: school, isLoading} = useSchools({
         kecamatan: "",
         validation_status: "",
-        page: pageIndex,
+        page: pageIndex + 1,
         per_page: pageSize,
     });
 
@@ -43,8 +43,8 @@ export default function SchoolsPage() {
                 data={school.data}
                 searchableColumn="nama"
                 manualPagination
-                pageIndex={school.current_page - 1}
-                serverPageSize={school.per_page}
+                pageIndex={pageIndex}
+                serverPageSize={pageSize}
                 pageCount={school.last_page}
                 totalItems={school.total}
                 onPageChange={(nextPageIndex) => {

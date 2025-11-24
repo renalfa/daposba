@@ -437,9 +437,10 @@ export function StudentEditForm({student, onSuccess}: StudentEditFormProps) {
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    <SelectItem value="Aktif">Aktif</SelectItem>
-                                                    <SelectItem value="Lulus">Lulus</SelectItem>
-                                                    <SelectItem value="Keluar">Keluar</SelectItem>
+                                                    <SelectItem value="aktif">Aktif</SelectItem>
+                                                    <SelectItem value="lulus">Lulus</SelectItem>
+                                                    <SelectItem value="mutasi">Mutasi</SelectItem>
+                                                    <SelectItem value="keluar">Keluar</SelectItem>
                                                     {/* sesuaikan dengan enum-mu */}
                                                 </SelectContent>
                                             </Select>

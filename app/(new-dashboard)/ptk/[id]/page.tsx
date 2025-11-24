@@ -4,39 +4,57 @@ import {useParams} from "next/navigation";
 import {usePtkById} from "@/hooks/use-ptk";
 import {PtkEditForm} from "./_components/edit.form";
 import {useRouter} from "next/navigation";
-
-const ptk = {
-    id: 1,
-    nama: "Andi Suryadi",
-    nip: "198901012010011001",
-    nuptk: "123456789012",
-    jenis_kelamin: "L",
-    status_kepegawaian: "PNS",
-    jenis_ptk: "Guru Mapel",
-    tmt_pengangkatan: "2016-07-01",
-    sumber_gaji: "APBD",
-    pendidikan_terakhir: "S1",
-    program_studi: "Matematika",
-    riwayat_pendidikan_formal_jenjang_pendidikan: "S1 Pendidikan",
-    riwayat_sertifikasi: "Sertifikasi Guru",
-    tahun_sertifikasi: "2020",
-    kode_kecamatan: "737101",
-    kode_kabupaten: "7371",
-    validation_status: "Valid",
-    backbone_last_synced_at: "2023-08-01T10:00:00Z",
-    created_at: "2023-08-01T10:00:00Z",
-    updated_at: "2023-08-01T10:00:00Z",
-};
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PtkDetailPage() {
     const router = useRouter();
 
-    // TODO: Replace with usePtkById not dummy
-    // const params = useParams<{id: string}>();
-    // const {data: ptk, isLoading, isError} = usePtkById(params.id);
+    const params = useParams<{id: string}>();
+    const {data: ptk, isLoading, isError} = usePtkById(params.id);
 
-    // if (isLoading) return <div>Loading...</div>;
-    // if (isError || !ptk) return <div>Gagal memuat data PTK</div>;
+    if (isLoading && !ptk) {
+        return (
+            <div className="p-4 space-y-4">
+                <Skeleton className="h-7 w-48" />
+
+                <div className="rounded-md border p-4 space-y-4">
+                    <div className="grid gap-3 md:grid-cols-2">
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-end gap-2 pt-2">
+                        <Skeleton className="h-9 w-36" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (isError || !ptk) {
+        return (
+            <div className="p-4">
+                <p className="text-sm text-red-500">Data peserta didik tidak ditemukan.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 space-y-4">

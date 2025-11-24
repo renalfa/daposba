@@ -223,7 +223,7 @@ export function PtkEditForm({ptk, onSuccess}: PtkEditFormProps) {
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    <SelectItem value="Guru Kelas">Guru Kelas</SelectItem>
+                                                    <SelectItem value="Guru">Guru Kelas</SelectItem>
                                                     <SelectItem value="Guru Mapel">Guru Mapel</SelectItem>
                                                     <SelectItem value="Kepala Sekolah">Kepala Sekolah</SelectItem>
                                                     <SelectItem value="Tenaga Administrasi Sekolah">

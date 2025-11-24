@@ -113,6 +113,7 @@ export function NewDataTable<TData, TValue>({
 
                   // trigger ke luar
                   if (next.pageIndex !== currentPagination.pageIndex) {
+                      console.log(next.pageIndex);
                       onPageChange?.(next.pageIndex);
                   }
                   if (next.pageSize !== currentPagination.pageSize) {

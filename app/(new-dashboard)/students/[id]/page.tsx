@@ -4,45 +4,57 @@ import {useParams} from "next/navigation";
 import {useStudent} from "@/hooks/use-students";
 import {StudentEditForm} from "./_components/edit.form";
 import {useRouter} from "next/navigation";
-
-const student = {
-    id: 1,
-    nama: "Ahmad Fauzan",
-    nisn: "0056789123",
-    nik: "3201121409080001",
-    jenis_kelamin: "L",
-    tanggal_lahir: "2009-08-14",
-    alamat: "Jl. Melati No. 12",
-    alamat_jalan: "Melati",
-    jarak_rumah_ke_sekolah: 2.5,
-    nama_ayah: "Slamet Riyadi",
-    nama_ibu: "Siti Aminah",
-    penghasilan_ayah: "3.000.000",
-    pekerjaan_ayah: "Karyawan Swasta",
-    pekerjaan_ibu: "Ibu Rumah Tangga",
-    penerima_kip: true,
-    layak_pip: true,
-    status: "Aktif",
-    jenis_pendaftaran_rombel: "Siswa Baru",
-    sekolah_asal: "SD Negeri 01",
-    jenis_keluar: "",
-    tanggal_masuk: "2021-07-10",
-    tanggal_keluar: "",
-    validation_status: "verified",
-    backbone_last_synced_at: null,
-    created_at: "2025-01-12T10:22:00Z",
-    updated_at: "2025-01-12T10:22:00Z",
-};
+import {Skeleton} from "@/components/ui/skeleton";
 
 export default function StudentDetailPage() {
     const router = useRouter();
 
-    // TODO: Replace with useStudent not dummy
-    // const params = useParams<{id: string}>();
-    // const {data: student, isLoading, isError} = useStudent(params.id);
+    const params = useParams<{id: string}>();
+    const {data: student, isLoading, isError} = useStudent(params.id);
 
-    // if (isLoading) return <div>Loading...</div>;
-    // if (isError || !ptk) return <div>Gagal memuat data Student</div>;
+    if (isLoading && !student) {
+        return (
+            <div className="p-4 space-y-4">
+                <Skeleton className="h-7 w-48" />
+
+                <div className="rounded-md border p-4 space-y-4">
+                    <div className="grid gap-3 md:grid-cols-2">
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-24" />
+                            <Skeleton className="h-9 w-full" />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-end gap-2 pt-2">
+                        <Skeleton className="h-9 w-36" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (isError || !student) {
+        return (
+            <div className="p-4">
+                <p className="text-sm text-red-500">Data peserta didik tidak ditemukan.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 space-y-4">

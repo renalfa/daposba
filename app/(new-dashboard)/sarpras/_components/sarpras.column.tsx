@@ -42,25 +42,25 @@ export const columns: ColumnDef<Sarpras>[] = [
         header: () => <span className="font-semibold">Tidak Layak</span>,
         cell: ({row}) => <code className="text-xs bg-muted px-1 rounded">{row.getValue("jumlah_tidak_layak")}</code>,
     },
-    {
-        id: "actions",
-        cell: ({row}) => (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-                        size="icon">
-                        <EllipsisVertical />
-                        <span className="sr-only">Open menu</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-32">
-                    <DropdownMenuItem asChild>
-                        <Link href={`/sarpras/${row.original.id}`}>Edit</Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        ),
-    },
+    // {
+    //     id: "actions",
+    //     cell: ({row}) => (
+    //         <DropdownMenu>
+    //             <DropdownMenuTrigger asChild>
+    //                 <Button
+    //                     variant="ghost"
+    //                     className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
+    //                     size="icon">
+    //                     <EllipsisVertical />
+    //                     <span className="sr-only">Open menu</span>
+    //                 </Button>
+    //             </DropdownMenuTrigger>
+    //             <DropdownMenuContent align="end" className="w-32">
+    //                 <DropdownMenuItem asChild>
+    //                     <Link href={`/sarpras/${row.original.id}`}>Edit</Link>
+    //                 </DropdownMenuItem>
+    //             </DropdownMenuContent>
+    //         </DropdownMenu>
+    //     ),
+    // },
 ];
